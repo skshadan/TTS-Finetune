@@ -4,6 +4,7 @@ Note these pts
 - This is the equivalent of AppData/Local in SageMaker terminal:- /home/ec2-user/.local/share/tts/tts_models--en--ljspeech--vits
 - Inside here, the trainer.py is kept:- /home/ec2-user/anaconda3/envs/pytorch_p310/lib/python3.10/site-packages
 - You need to do everything in terminal, use vim to open .py files (can work in local and push here also)
+- Put the OG model in hugging face. Then use hf_hub_download for downloading the model to ur repo.
 - Fine-tuning and inference is tested  
 
 
