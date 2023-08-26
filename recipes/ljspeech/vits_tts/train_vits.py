@@ -11,36 +11,43 @@ from TTS.utils.audio import AudioProcessor
 
 output_path = os.path.dirname(os.path.abspath(__file__))
 dataset_config = BaseDatasetConfig(
-    formatter="ljspeech", meta_file_train="metadata.csv", path=os.path.join(output_path, "../LJSpeech-1.1/")
+    formatter="ljspeech", meta_file_train="metadata_train.csv", path="/mnt/c/Users/faraa/TTStry3/TTS/recipes/ljspeech/vits_tts/chota"
 )
 audio_config = VitsAudioConfig(
     sample_rate=22050, win_length=1024, hop_length=256, num_mels=80, mel_fmin=0, mel_fmax=None
 )
 
-config = VitsConfig(
-    audio=audio_config,
-    run_name="vits_ljspeech",
-    batch_size=32,
-    eval_batch_size=16,
-    batch_group_size=5,
-    num_loader_workers=8,
-    num_eval_loader_workers=4,
-    run_eval=True,
-    test_delay_epochs=-1,
-    epochs=1000,
-    text_cleaner="english_cleaners",
-    use_phonemes=True,
-    phoneme_language="en-us",
-    phoneme_cache_path=os.path.join(output_path, "phoneme_cache"),
-    compute_input_seq_cache=True,
-    print_step=25,
-    print_eval=True,
-    mixed_precision=True,
-    output_path=output_path,
-    datasets=[dataset_config],
-    cudnn_benchmark=False,
-)
 
+config = VitsConfig(
+		audio=audio_config,
+		run_name="chota-voice",
+		batch_size=4,
+		eval_batch_size=4,
+		batch_group_size=5,
+		num_loader_workers=1,
+		num_eval_loader_workers=1,
+		run_eval=True,
+		test_delay_epochs=-1,
+		epochs=1000,
+		text_cleaner="phoneme_cleaners",
+		use_phonemes=True,
+		phoneme_language="en-us",
+		phoneme_cache_path=os.path.join(output_path, "phoneme_cache"),
+		compute_input_seq_cache=True,
+		print_step=25,
+		print_eval=True,
+		mixed_precision=False,
+		output_path=output_path,
+		datasets=[dataset_config],
+		cudnn_benchmark=False,
+		test_sentences=[
+		  "Hello, how are you this is a test",
+		  "Hello  guys! i am bheem hope you are doing good",
+		  "This is bheem from india, i love india",
+		  "This is just my ai voice, hope  you guys know me",
+		  "Hello, bheem is here, how are you all?",
+		],
+	)
 # INITIALIZE THE AUDIO PROCESSOR
 # Audio processor is used for feature extraction and audio I/O.
 # It mainly serves to the dataloader and the training loggers.
