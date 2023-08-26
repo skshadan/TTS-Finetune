@@ -1,3 +1,16 @@
+## NOTE  
+This is FarziDon's repo. Made for running this code in SageMaker.  
+Note these pts  
+- This is the equivalent of AppData/Local in SageMaker terminal:- /home/ec2-user/.local/share/tts/tts_models--en--ljspeech--vits
+- Inside here, the trainer.py is kept:- /home/ec2-user/anaconda3/envs/pytorch_p310/lib/python3.10/site-packages
+- You need to do everything in terminal, use vim to open .py files (can work in local and push here also)
+- Fine-tuning and inference is tested  
+
+
+
+
+
+
 
 ## 🐸Coqui.ai News
 - 📣 [🐶Bark](https://github.com/suno-ai/bark) is now available for inference with uncontrained voice cloning. [Docs](https://tts.readthedocs.io/en/dev/models/bark.html)
