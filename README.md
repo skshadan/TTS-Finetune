@@ -3,7 +3,7 @@ This is FarziDon's repo. Made for running this code in SageMaker.
 Procedure:-  
 
 - Make a fork of this repo. Clone it, and then add the dataset inside recipe/vits_tts. Then push it back to ur repo (+ PR with main repo also)
-- Git clone the final repo and pip install it
+- Git clone the final repo and pip install it (Use sudo yum install espeak)  
 - You need to do everything in terminal, use vim to open .py files (can work in local and push here also)
 - Run the main.py once.
 - The model will be stored at /home/ec2-user/.local/share/tts/tts_models--en--ljspeech--vits (equivalent of AppData/Local in SageMaker terminal)
@@ -14,6 +14,7 @@ Procedure:-
 - Trainer.py is kept here:- /home/ec2-user/anaconda3/envs/pytorch_p310/lib/python3.10/site-packages
 - The vits_tts address is this:- /home/ec2-user/TTS/recipes/ljspeech/vits_tts
 - Fine-tuning and inference is tested
+- Fine-tuning (python train_vits.py —restore_path /home/ec2-user/.local/share/tts/tts_models--en--ljspeech--vits - -coqpit.lr_gen 0.00001 --coqpit.lr_disc 0.00001)
 
 ## 🐸Coqui.ai News
 - 📣 [🐶Bark](https://github.com/suno-ai/bark) is now available for inference with uncontrained voice cloning. [Docs](https://tts.readthedocs.io/en/dev/models/bark.html)
