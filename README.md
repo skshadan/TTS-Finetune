@@ -5,7 +5,8 @@ Note these pts
 - Inside here, the trainer.py is kept:- /home/ec2-user/anaconda3/envs/pytorch_p310/lib/python3.10/site-packages
 - You need to do everything in terminal, use vim to open .py files (can work in local and push here also)
 - Put the OG model in hugging face. Then use hf_hub_download for downloading the model to ur repo.
-- Fine-tuning and inference is tested  
+- Fine-tuning and inference is tested
+- Save the models here:- /home/ec2-user/TTS/recipes/ljspeech/vits_tts/model2 
 
 
 
