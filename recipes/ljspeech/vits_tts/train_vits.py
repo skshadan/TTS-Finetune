@@ -20,7 +20,7 @@ audio_config = VitsAudioConfig(
 
 config = VitsConfig(
 		audio=audio_config,
-		run_name="chota-voice",
+		run_name="new-voice1",
 		batch_size=4,
 		eval_batch_size=4,
 		batch_group_size=5,
@@ -30,7 +30,7 @@ config = VitsConfig(
 		test_delay_epochs=-1,
 		epochs=1000,
 		text_cleaner="phoneme_cleaners",
-		use_phonemes=True,
+		use_phonemes=False,
 		phoneme_language="en-us",
 		phoneme_cache_path=os.path.join(output_path, "phoneme_cache"),
 		compute_input_seq_cache=True,
