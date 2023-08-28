@@ -9,10 +9,10 @@ Procedure:-
 - The model will be stored at /home/ec2-user/.local/share/tts/tts_models--en--ljspeech--vits (equivalent of AppData/Local in SageMaker terminal)
 - Put the OG pretrained model on HF. Run download.py in vits_tts/model2. It will retrieve the pretrained model config.json and put it in the above mentioned folder
 - You would have to then change the model name to model_file.pth
-- Once model is fine-tuned, use s3.py in vits_tts/model2 to save the model in S3 bucket. Download it from there to use.
+- Once model is fine-tuned, use s3.py in vits_tts/model to save the model in S3 bucket. Download it from there to use.
 - When running tensorboard, use the sagemaker notebook url and then add /proxy/8001 at the end of it. https://coquitrainshadan.notebook.ap-south-1.sagemaker.aws/proxy/8001
 - Trainer.py is kept here:- /home/ec2-user/anaconda3/envs/pytorch_p310/lib/python3.10/site-packages
-- The vits_tts address is this:- /home/ec2-user/TTS/recipes/ljspeech/vits_tts/model2
+- The vits_tts address is this:- /home/ec2-user/TTS/recipes/ljspeech/vits_tts
 - Fine-tuning and inference is tested
 
 ## 🐸Coqui.ai News
