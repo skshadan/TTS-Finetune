@@ -14,7 +14,7 @@ Procedure:-
 - Trainer.py is kept here:- /home/ec2-user/anaconda3/envs/pytorch_p310/lib/python3.10/site-packages
 - The vits_tts address is this:- /home/ec2-user/TTS/recipes/ljspeech/vits_tts
 - Fine-tuning and inference is tested
-- Fine-tuning (python train_vits.py —restore_path /home/ec2-user/.local/share/tts/tts_models--en--ljspeech--vits - -coqpit.lr_gen 0.00001 --coqpit.lr_disc 0.00001)
+- Fine-tuning (python train_vits.py —restore_path /home/ec2-user/.local/share/tts/tts_models--en--ljspeech--vits/model_file.pth - -coqpit.lr_gen 0.00001 --coqpit.lr_disc 0.00001)
 
 29th Aug:-  
 - datasetmaker.py has been added:- It will create datasets of concat_001.wav and a metadata.csv. Add the concat ones NOT the split ones. This will say Surprise at the start of each sentence, and add in the transciption of each split as well
