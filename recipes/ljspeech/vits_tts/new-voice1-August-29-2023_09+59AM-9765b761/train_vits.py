@@ -11,7 +11,7 @@ from TTS.utils.audio import AudioProcessor
 
 output_path = os.path.dirname(os.path.abspath(__file__))
 dataset_config = BaseDatasetConfig(
-    formatter="ljspeech", meta_file_train="metadata.csv", path="/home/ec2-user/TTS/recipes/ljspeech/vits_tts/chinti"
+    formatter="ljspeech", meta_file_train="metadata_train.csv", path="/home/ec2-user/TTS/recipes/ljspeech/vits_tts/chota"
 )
 audio_config = VitsAudioConfig(
     sample_rate=22050, win_length=1024, hop_length=256, num_mels=80, mel_fmin=0, mel_fmax=None
@@ -67,8 +67,7 @@ train_samples, eval_samples = load_tts_samples(
     dataset_config,
     eval_split=True,
     eval_split_max_size=config.eval_split_max_size,
-    #eval_split_size=config.eval_split_size,
-    eval_split_size=0.05555555555555555,
+    eval_split_size=config.eval_split_size,
 )
 
 # init model

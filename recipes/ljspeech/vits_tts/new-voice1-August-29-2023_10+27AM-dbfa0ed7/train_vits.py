@@ -11,7 +11,7 @@ from TTS.utils.audio import AudioProcessor
 
 output_path = os.path.dirname(os.path.abspath(__file__))
 dataset_config = BaseDatasetConfig(
-    formatter="ljspeech", meta_file_train="metadata.csv", path="/home/ec2-user/TTS/recipes/ljspeech/vits_tts/chinti"
+    formatter="ljspeech", meta_file_train="metadata_modified.csv", path="/home/ec2-user/TTS/recipes/ljspeech/vits_tts/chinti"
 )
 audio_config = VitsAudioConfig(
     sample_rate=22050, win_length=1024, hop_length=256, num_mels=80, mel_fmin=0, mel_fmax=None
