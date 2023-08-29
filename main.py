@@ -1,7 +1,7 @@
 from TTS.api import TTS
 
-#tts = TTS(model_name="tts_models/en/ljspeech/tacotron2-DDC_ph", progress_bar=True, gpu=True)
-tts = TTS(model_name="best_model.pth", progress_bar=True, gpu=True)
+tts = TTS(model_name="tts_models/en/ljspeech/vits", progress_bar=True, gpu=True)
+#tts = TTS(model_name="best_model.pth", progress_bar=True, gpu=True)
 #tts = TTS(model_name="tts_models/en/jenny/jenny", progress_bar=True, gpu=True)
 
 text = "Can you believe my neighbor's dog dug up my entire garden again? This is the third time this month! I've tried to stay patient, but I'm really fed up with the situation."

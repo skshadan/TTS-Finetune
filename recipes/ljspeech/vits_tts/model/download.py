@@ -1,2 +1,12 @@
 from huggingface_hub import hf_hub_download
-hf_hub_download(repo_id="youmebangbang/vits_tts_models", filename="neil_degrasse_tyson_checkpoint_1910000.pth", local_dir="/home/ec2-user/TTS/recipes/ljspeech/vits_tts/model2")
+import shutil  # Make sure to import this
+
+# Download the model checkpoint
+hf_hub_download(repo_id="youmebangbang/vits_tts_models", filename="neil_degrasse_tyson_checkpoint_1910000.pth")
+
+# Rename the file
+shutil.move("/home/ec2-user/.local/share/tts/tts_models--en--ljspeech--vits/neil_degrasse_tyson_checkpoint_1910000.pth", "/home/ec2-user/.local/share/tts/tts_models--en--ljspeech--vits/model_file.pth")
+
+# Download the config.json file
+hf_hub_download(repo_id="youmebangbang/vits_tts_models", filename="config.json")
+
