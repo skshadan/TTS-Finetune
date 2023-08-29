@@ -1,77 +1,68 @@
 import os
 import glob
 import subprocess
-import pandas as pd
 from pathlib import Path
-from textblob import TextBlob
-import whisper  # Assuming you have this library imported for your specific use-case
-
-def classify_sentiment(text):
-    analysis = TextBlob(text)
-    polarity = analysis.sentiment.polarity
-    subjectivity = analysis.sentiment.subjectivity
-    
-    if polarity > 0.2:
-        return "[Happy] " + text
-    elif polarity < -0.2:
-        return "[Sad] " + text
-    elif polarity < -0.1 and subjectivity <= 0.5:
-        return "[Angry] " + text
-    elif polarity < 0.1 and polarity > -0.1 and subjectivity > 0.5:
-        return "[Confused] " + text
-    elif polarity > 0.1 and subjectivity < 0.5:
-        return "[Surprised] " + text
-    else:
-        return "[Neutral] " + text
+import whisper  # Replace with actual import
 
 # Specify the path to the directory containing audio files
-upload_dir = 'E:\\MyWorks\\DatasetMaker\\dataset'
+upload_dir = r'E:\\MyWorks\\DatasetMaker\\final'  # Use raw string to avoid escaping issues
 
-# Create the 'out' directory if it doesn't exist
+# Create 'out' and 'splits' directories if they don't exist
 output_dir = os.path.join(upload_dir, 'out')
+splits_dir = os.path.join(output_dir, 'splits')
+concatenated_dir = os.path.join(output_dir, 'concatenated')
+
 os.makedirs(output_dir, exist_ok=True)
+os.makedirs(splits_dir, exist_ok=True)
+os.makedirs(concatenated_dir, exist_ok=True)
 
 # Convert audio files to WAV format
 audio_files = glob.glob(os.path.join(upload_dir, '*.mp3')) + glob.glob(os.path.join(upload_dir, '*.wav'))
 for audio_file in audio_files:
     output_filename = os.path.splitext(os.path.basename(audio_file))[0] + '.wav'
     output_path = os.path.join(output_dir, output_filename)
-    subprocess.run(['ffmpeg', '-i', audio_file, '-acodec', 'pcm_s16le', '-ar', '22050', '-ac', '1', output_path])
-
-# Create the 'splits' directory if it doesn't exist
-splits_dir = os.path.join(output_dir, 'splits')
-os.makedirs(splits_dir, exist_ok=True)
+    subprocess.run(['ffmpeg', '-i', audio_file, '-acodec', 'pcm_s16le', '-ar', '48000', '-ac', '1', output_path])
 
 # Split audio files using SoX
+start_audio_path = r'E:\\MyWorks\\DatasetMaker\\final\\start_audio.wav'  # Replace with your actual start audio file path
 wav_files = glob.glob(os.path.join(output_dir, '*.wav'))
 for wav_file in wav_files:
     subprocess.run(['sox', wav_file, os.path.join(splits_dir, os.path.basename(wav_file)), 'silence', '1', '0.5', '0.1%', '1', '0.5', '0.1%', ':', 'newfile', ':', 'restart'])
 
+# Loop through the newly split files and add the 'start' audio at the beginning
+split_files = glob.glob(os.path.join(splits_dir, '*.wav'))
+for split_file in split_files:
+    concat_filename = os.path.join(concatenated_dir, 'concat_' + os.path.basename(split_file))
+    subprocess.run(['sox', start_audio_path, split_file, concat_filename])
+
 # Remove small audio files (less than 15KB)
-small_files = glob.glob(os.path.join(splits_dir, '*.wav'))
+small_files = glob.glob(os.path.join(concatenated_dir, '*.wav'))
 for small_file in small_files:
-    if os.path.getsize(small_file) < 15000:
+    if os.path.getsize(small_file) < 15000:  # Size in bytes
         os.remove(small_file)
 
 # Load the Whisper model
-model = whisper.load_model("medium.en")
+model = whisper.load_model("medium.en")  # Replace with actual load function
 
 # Initialize lists to store filenames and transcript text
 all_filenames = []
 transcript_text = []
 
 # Open the metadata.csv file for writing
-metadata_path = 'E:\\MyWorks\\DatasetMaker\\metadata.csv'
+metadata_path = os.path.join(upload_dir, 'metadata.csv')
 with open(metadata_path, 'w', encoding='utf-8') as outfile:
-    for filepath in glob.glob(os.path.join(splits_dir, '*.wav')):
-        base = os.path.basename(filepath)
+     for filepath in glob.glob(os.path.join(splits_dir, '*.wav')):
+        base = os.path.splitext(os.path.basename(filepath))[0]  # Get the base filename without extension
+        final_base = "concat_" + base
         all_filenames.append(base)
         result = model.transcribe(filepath)
         output = result["text"].lstrip()
         output = output.replace("\n", "")
-        output_with_sentiment = classify_sentiment(output)
-        
-        outfile.write(base + '|' + output_with_sentiment + '|' + output_with_sentiment + '\n')
-        print(base + '|' + output_with_sentiment + '|' + output_with_sentiment + '\n')
+        # Add '[ Surprise ]' to the beginning of every transcription
+        modified_output = '[Surprise]' + output
+        # Write filename (without extension), transcript, and cleaned transcript to the CSV file
+        outfile.write(final_base + '|' + modified_output + '|' + modified_output + '\n')
+        print(final_base + '|' + modified_output + '|' + modified_output + '\n')
+
 
 print("Audio splitting and transcription completed.")
