@@ -19,7 +19,7 @@ Procedure:-
 29th Aug:-  
 - datasetmaker.py has been added:- It will create datasets of concat_001.wav and a metadata.csv. Add the concat ones NOT the split ones. This will say Surprise at the start of each sentence, and add in the transciption of each split as well
 - cleaners.py:- [] brackets won't be removed now  
-- Note that the start_audio created by datasetmaker needs to be in the metadata and folder.
+- Note that the start_audio created by datasetmaker needs to be in the metadata and folder.  
 6th Sept:-
 - git clone into /home/ec2-user/SageMaker for using additional space
 - first python main.py -> train the base model downloaded for 1-2 epochs -> Once trained, take the latest checkpt and continue path finetune on it.
