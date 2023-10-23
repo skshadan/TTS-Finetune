@@ -27,7 +27,13 @@ Procedure:-
 - Commands:- CUDA_VISIBLE_DEVICES="0,1,2,3,4,5,6,7" python -m trainer.distribute --script /home/ec2-user/SageMaker/tts-sage/recipes/ljspeech/vits_tts/train_vits.py --restore_path /home/ec2-user/.local/share/tts/tts_models--en--ljspeech--vits/model_file.pth --config_file /home/ec2-user/.local/share/tts/tts_models--en--ljspeech--vits/config.json
 - CUDA_VISIBLE_DEVICES="0,1,2,3,4,5,6,7" python -m trainer.distribute --script /home/ec2-user/tts-sage/recipes/ljspeech/vits_tts/train_vits.py --restore_path /home/ec2-user/tts-sage/recipes/ljspeech/vits_tts/vits_ljspeech-September-04-2023_12+45PM-edeb850/checkpoint_1000022.pth --config_path /home/ec2-user/tts-sage/recipes/ljspeech/vits_tts/vits_ljspeech-September-04-2023_12+45PM-edeb850/config.json
 
+23rd October:-  
+- For fine-tuning, put the model.pth and config.json (anywhere) in vits_tts. Run the python train_vits.py command, then stop after 1 checkpoint. Take the checkpt.pth and run the same cmd on it again
+- CUDA_VISIBLE_DEVICES="0,1,2,3,4,5,6,7" python -m trainer.distribute --script /home/ec2-user/SageMaker/tts-sage/recipes/ljspeech/vits_tts/train_vits.py --restore_path /home/ec2-user/.local/share/tts/tts_models--en--ljspeech--vits/model_file.pth --config_file /home/ec2-user/.local/share/tts/tts_models--en--ljspeech--vits/config.json
+- CUDA_VISIBLE_DEVICES="0,1,2,3,4,5,6,7" python -m trainer.distribute --script /home/ec2-user/SageMaker/TTS/recipes/ljspeech/vits_tts/train_vits.py --restore_path /home/ec2-user/SageMaker/TTS/recipes/ljspeech/vits_tts/pralok-September-30-2023_12+52PM-af62613c/checkpoint_1970307.pth --config_path/home/ec2-user/SageMaker/TTS/recipes/ljspeech/vits_tts/pralok-September-30-2023_12+52PM-af62613c/config.json
+- For running basic inference, first run main.py once. It will create a new folder in /home/ec2-user/.local/share/tts/tts_models--en--ljspeech--vits And store the default model there. Put your model/config.json in that folder to run inference again. If you want to make API. Use the script shadan_flask.py
 
+- Do mixed_precis
 ## 🐸Coqui.ai News
 - 📣 [🐶Bark](https://github.com/suno-ai/bark) is now available for inference with uncontrained voice cloning. [Docs](https://tts.readthedocs.io/en/dev/models/bark.html)
 - 📣 You can use [~1100 Fairseq models](https://github.com/facebookresearch/fairseq/tree/main/examples/mms) with 🐸TTS.
